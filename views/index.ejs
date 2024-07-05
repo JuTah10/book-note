@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://db.onlinewebfonts.com/c/5ef1d874f7e6c2b682f531ccf6479eeb?family=Valkyrie+C4" rel="stylesheet">
+    <title>Book Notes</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            document.querySelectorAll(".bookTitle").forEach((title)=>{
+                title.addEventListener("click", function(){
+                    this.closest("form").submit();
+                })
+        })
+        })
+        
+       
+    </script>
+</head>
+<body>
+    <div class="content-holder">
+        <div class="introduction">
+            <h1>RANDOM USER NAME</h1>
+            <h2>BOOKS I'VE READ</h2>
+            <div class="paragraph">Tiny summary but detailed notes for each. Use the ISBN number to find it from your local library or anywhere else. This page will constantly update as I read more, so bookmark it if you want to check back in a few months.</div>
+        </div>
+        <hr>
+        <div class="middle" style="margin: 30px  0">
+            <form action="/newBook" method="post">
+                <button onclick="this.form.submit()">Add New Book Note</button>
+            </form>
+            <form action="/sort" method="post">
+                <div class="sorting">
+                    <label for="sorting-option">Sort by:</label>
+                    <select name="sortingOption" onchange="this.form.submit()">
+                        <option value="recent" <%= sortingType === 'recent'? 'selected' : '' %>>Recent</option>
+                        <option value="rating"  <%= sortingType === 'rating' ? 'selected' : '' %>>Rating</option>
+                        <option value="title"  <%= sortingType === 'title' ? 'selected' : '' %>>Title</option>
+                    </select>
+                </div>    
+            </form>
+        </div>
+        
+        <div class="content">
+            <% bookArray.forEach((book)=>{%>
+                <div class="section-container">
+                    <img src="<%= book.coverimglink %>">
+                    <form action="/<%= book.id %>" method="post">
+                        <h3 class="bookTitle"><%= book.title%> - BY <%= book.author %></h3>
+                    </form> 
+                    <div class="details">DATE READ: <%= book.dateread.toString().substring(0,15) %>. HOW STRONGLY I RECOMMEND IT: <%= book.rating %>/10</div>
+                   
+                    <div class="paragraph"><%= book.description %></div>
+        
+                </div>
+              <% }) %>
+               
+        </div>
+    </div>
+</body>
+</html>

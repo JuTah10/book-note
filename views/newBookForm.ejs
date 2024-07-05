@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://db.onlinewebfonts.com/c/5ef1d874f7e6c2b682f531ccf6479eeb?family=Valkyrie+C4" rel="stylesheet">
+    <title>Book Notes</title>
+</head>
+<body>
+    <div class="content-holder newbook-content-holder">
+        <form action="/newBook/addingForm" method="post">
+            <label for="book-name">Book Title:</label><br>
+            <input type="text" id="book-name" name="bookName" required><br>
+            <label for="author-name">Author:</label><br>
+            <input type="text" id="author-name" name="authorName" required><br>
+            <button>Submit</button>
+        </form>
+        OR
+        <form action="/newBook/addingForm" method="post">
+            <label for="ISBN-code">ISBN Code:</label><br>
+            <input type="text" id="ISBN-code" name="isbnCode" required><br>
+            <button>Submit</button>
+        </form>
+    </div>
+</body>
+<script>
+
+</script>
+</html>

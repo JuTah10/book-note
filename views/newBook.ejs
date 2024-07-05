@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link href="https://db.onlinewebfonts.com/c/5ef1d874f7e6c2b682f531ccf6479eeb?family=Valkyrie+C4" rel="stylesheet">
+    <title>Book Notes</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            window.submitForm = function(action){
+                const form = document.querySelector(".form-action");
+                form.action = action;
+                form.submit();
+            }
+        })
+    </script>
+</head>
+<body>
+    <div class="content-holder">
+        <div class="introduction">
+            <h1>RANDOM USER NAME</h1>
+        </div>
+        <hr>
+        
+        <form class="form-action" method="post">
+            <div class="header">
+                <% if(editPage){ %>
+                    <input type="hidden" name="coverimglink" value="<%= data.coverimglink %>">
+                    <input type="hidden" name="title" value="<%= data.title %>">
+                    <input type="hidden" name="author" value="<%= data.author %>">
+                    <input type="hidden" name="description" value= "<%= data.description %>">
+                <%} %>
+                <input type="hidden" name="isbn" value="<%= data.isbn %>">
+                
+                <img src="<%= data.coverimglink %>">
+                <h3 class="bookTitle"><%= data.title %> - BY <%= data.author %></h3>
+           
+                <div class="details">ISBN: <%= data.isbn %></div>
+                
+                <% if(editPage){ %>
+                    <label class="details" for="dateRead">DATE READ: </label>
+                    <input value="<%= data.dateread ? data.dateread.toString().substring(0, 15) : null %>" id="dateRead" type="text" name="dateRead" placeholder="YYYY-MM-DD">
+                <%} else{%>
+                    <label class="details" for="dateRead">DATE READ: <%= data.dateread.toString().substring(0,15) %></label>
+                <%} %>
+
+                <br>
+                
+                <% if(editPage){ %>
+                    <label class="details" for="rating">HOW STRONGLY I RECOMMEND IT:</label>
+                    <input value="<%= data.rating || null %>" id="rating" type="text" name="rating" placeholder="Scale 0-10">
+                <%} else{%>
+                    <label class="details" for="rating">HOW STRONGLY I RECOMMEND IT: <%= data.rating %>/10</label>
+                <%} %>
+
+                <br>
+                
+            </div>
+            <div style="clear: left" class="note-container">
+                <div class="my-note">
+                    <div class="note">MY NOTES: </div>
+                    <% if(editPage){ %>
+                        <button onclick="submitForm('/newBook/addingForm/added')">Submit</button>
+                    <%} else{%> 
+                        <div>
+                            <button onclick="submitForm('/newBook/addingForm')">Edit</button>
+                        <button onclick="submitForm('/newBook/addingForm/deleted')">Delete</button>
+                        </div>   
+                        
+                    <%} %>
+                    
+                </div>
+                <% if(editPage){ %>
+                    <textarea class="noteArea" name="noteArea" id="note" placeholder="Enter your note..."><%= data.note || null %></textarea>
+                <%} else{%>
+                    <textarea class="noteArea" name="noteArea" id="note" readonly><%= data.note %></textarea>
+                <%} %>
+                
+            </div>
+        </form>
+    </div>
+</body>
+</html>
